@@ -1,12 +1,12 @@
 /******* Change Box Model ***************/
-:root{
-  --titleText: "Orbitron", sans-serif;
-  --smallText: "TASA Orbiter", sans-serif;
-  --teracotta: #cd6858;
-  --quillGrey: #cececd;
-  --brown: #5b443e;
-  --tan: #cfa987;
-  --darkGrey: rgb(56, 56, 56);
+:root {
+	--titleText: 'Orbitron', sans-serif;
+	--smallText: 'TASA Orbiter', sans-serif;
+	--teracotta: #cd6858;
+	--quillGrey: #cececd;
+	--brown: #5b443e;
+	--tan: #cfa987;
+	--darkGrey: rgb(56, 56, 56);
 }
 *,
 *:before,
@@ -22,11 +22,17 @@ body {
 	background-color: white;
 }
 
-h1, h2 {
-  font-family: var(--titleText);
+h1,
+h2 {
+	font-family: var(--titleText);
 }
-h3, h4, p, li, a, figcaption {
-  font-family: var(--smallText);
+h3,
+h4,
+p,
+li,
+a,
+figcaption {
+	font-family: var(--smallText);
 }
 
 header {
@@ -51,22 +57,22 @@ nav ul {
 	flex-direction: row;
 	justify-content: space-evenly;
 	font-size: 1.5em;
-  padding: 0;
+	padding: 0;
 }
-nav{
-  margin: 0 auto;
+nav {
+	margin: 0 auto;
 }
-nav ul li{
-  background-color: var(--brown);
-  color: white;
-  width: 100%;
-  text-align: center;
-  padding: .5em;
+nav ul li {
+	background-color: var(--brown);
+	color: white;
+	width: 100%;
+	text-align: center;
+	padding: 0.5em;
 }
-nav ul li:hover{
-  background-color: rgb(214, 214, 214);
-  color: black;
-  cursor: pointer;
+nav ul li:hover {
+	background-color: rgb(214, 214, 214);
+	color: black;
+	cursor: pointer;
 }
 
 .hero {
@@ -102,10 +108,10 @@ nav ul li:hover{
 	height: 45px;
 	background-color: var(--teracotta);
 	font-size: 1.25em;
-  &:hover{
-    background-color: #e48475; /*lighter Teracotta*/
-    cursor: pointer;
-  }
+}
+.overlay button:hover {
+	background-color: #e48475; /*lighter Teracotta*/
+	cursor: pointer;
 }
 .small-grid {
 	display: grid;
@@ -126,14 +132,14 @@ figure img {
 	height: 90%;
 	width: auto;
 }
-.reviews{
-  font-size: 1.25em;
+.reviews {
+	font-size: 1.25em;
 }
-.reviews li{
-  margin: 1em;
+.reviews li {
+	margin: 1em;
 }
-footer{
-  margin-top: 3em;
+footer {
+	margin-top: 3em;
 }
 
 @media (min-width: 655px) {
