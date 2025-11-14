@@ -35,4 +35,10 @@ invCont.buildInvDetail = async function (req, res, next) {
 	});
 };
 
+invCont.throwError = async function(req, res){
+	const error = new Error("Internal Server Error: Something Went Wrong! (Intentionally)");
+	error.status = 500;
+	throw error;
+};
+
 module.exports = invCont;

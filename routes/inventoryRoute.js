@@ -16,5 +16,7 @@ router.get(
 	'/details/:invId',
 	utilities.handleErrors(invController.buildInvDetail)
 );
+router.get('/trigger500', utilities.handleErrors(invController.throwError));
+
 
 module.exports = router;
