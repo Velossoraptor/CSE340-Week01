@@ -17,8 +17,8 @@
 body {
 	width: 100%;
 	background-color: white;
-  padding: .5em;
-  margin: 0 auto;
+	padding: 0.5em;
+	margin: 0 auto;
 }
 
 h1,
@@ -141,6 +141,42 @@ figure img {
 .reviews li {
 	margin: 1em;
 }
+#inv-detail-display {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+#inv-detail-display img {
+	width: 80%;
+	height: auto;
+	margin: 0 auto;
+}
+.description-list {
+	list-style: none;
+	font-size: 1.1em;
+	/* width: 50%; */
+	height: auto;
+	margin: 0 auto;
+}
+.description-list li {
+	padding-top: 2.5%;
+	width: 100%;
+}
+button{
+	background-color: var(--teracotta);
+	color: var(--darkGrey);
+	border: none;
+	min-width: 48px;
+	width: 120px;
+	min-height: 48px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+button:hover{
+	background-color: var(--tan);
+}
 footer {
 	margin-top: 3em;
 }
@@ -181,5 +217,15 @@ footer {
 		font-size: 1.5em;
 		padding: 0;
 		max-width: 100%;
+	}
+	#inv-detail-display {
+		flex-direction: row;
+	}
+	#inv-detail-display img {
+		width: 50%;
+		height: auto;
+	}
+	.description-list {
+		width: 50%;
 	}
 }
