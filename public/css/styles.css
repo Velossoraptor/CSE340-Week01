@@ -64,10 +64,15 @@ nav {
 }
 nav ul li {
 	background-color: var(--brown);
-	color: white;
 	width: 100%;
 	text-align: center;
 	padding: 0.5em;
+}
+nav ul li a{
+	color: white!important;
+}
+nav ul li a:hover{
+	color: black!important;
 }
 nav ul li:hover {
 	background-color: rgb(214, 214, 214);
@@ -153,11 +158,19 @@ figure img {
 	margin: 0 auto;
 }
 .description-list {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
 	list-style: none;
 	font-size: 1.1em;
 	/* width: 50%; */
 	height: auto;
 	margin: 0 auto;
+}
+#description{
+	background-color: var(--quillGrey);
+	padding: 10px;
+	border-radius: 8px;
 }
 .description-list li {
 	padding-top: 2.5%;
