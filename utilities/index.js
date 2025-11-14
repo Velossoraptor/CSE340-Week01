@@ -71,7 +71,7 @@ Util.buildInvDetail = async function(data){
     list+= '<li id="description"><b>Description:</b> <br/>' + car.inv_description + '</li>'
     list+= '<li> <b>Color:</b> ' + car.inv_color + '</li>'
     list+= '<li> <b>Price:</b> $' + parseInt(car.inv_price, 10).toLocaleString("en-US") + '</li>'
-    list+= '<li> <b>Mileage:</b> ' + car.inv_miles.toLocaleString("en-US") + '</li>'
+    list+= '<li> <b>Mileage:</b> ' + car.inv_miles.toLocaleString("en-US") + ' Miles</li>'
     list+= '<li><button id="add-to-cart" title="This button doesn\'t work right now!">Add To Cart</button></li>'
     list+= '</ul>'
     details+=list
