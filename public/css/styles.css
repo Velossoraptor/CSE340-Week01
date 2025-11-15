@@ -68,7 +68,7 @@ nav ul li {
 	text-align: center;
 	padding: 0.5em;
 }
-nav ul li a{
+nav a{
 	color: white!important;
 }
 nav ul li a:hover{
@@ -175,6 +175,9 @@ figure img {
 .description-list li {
 	padding-top: 2.5%;
 	width: 100%;
+}
+#inv-display{
+	list-style: none;
 }
 button{
 	background-color: var(--teracotta);
