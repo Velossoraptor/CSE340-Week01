@@ -191,9 +191,14 @@ button{
 	font-weight: bold;
 	cursor: pointer;
 }
-
 button:hover{
 	background-color: var(--tan);
+}
+.notice{
+	color: rgb(45, 165, 45);
+}
+.error{
+	color: rgb(194, 29, 29);
 }
 footer {
 	margin-top: 3em;
