@@ -1,0 +1,17 @@
+<!-- Display the title of the page in the HTML, which can help SEO -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<!-- Displays the login form -->
+
+<form class="login">
+    <label>Email: <input type="text" id="account_email" name="account_email"> </label>
+    <label>Password: <input type="text" id="account_password" name="account_password"> </label>
+    <input type="submit" value="Login">
+    <p>No Account? <a href="">Sign Up</a></p>
+</form>
