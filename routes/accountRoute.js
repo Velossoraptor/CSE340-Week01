@@ -4,19 +4,10 @@ const router = new express.Router();
 const accountController = require('../controllers/accountController');
 const utilities = require('../utilities/');
 
-// // Route to build inventory by classification view
-// router.get(
-//     '/type/:classificationId',
-//     utilities.handleErrors(invController.buildByClassificationId)
-// );
-
-// // Route to get Inventory Detail Page
-// router.get(
-//     '/details/:invId',
-//     utilities.handleErrors(invController.buildInvDetail)
-// );
-
 // Route for login
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
+
+// Route for registration
+router.get('/register', utilities.handleErrors(accountController.buildRegister));
 
 module.exports = router;

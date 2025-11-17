@@ -1,0 +1,20 @@
+<!-- Display the title of the page in the HTML, which can help SEO -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<!-- Displays the login form -->
+
+<form class="login">
+    <label>*First name: <input type="text" id="account_firstname" name="account_firstname" required> </label>
+    <label>*Last name: <input type="text" id="account_lastname" name="account_lastname" required> </label>
+    <label>*Email address: <input type="text" id="account_email" name="account_email" required> </label>
+    <label>*Password: <input type="text" id="account_password" name="account_password" required> </label>
+    <p>Note: Passwords must be at least 12 characters, contain one capital letter, one number, one special character</p>
+    <input type="submit" value="Register">
+    <p>Already have an Account? <a href="/account/login">Login</a></p>
+</form>
