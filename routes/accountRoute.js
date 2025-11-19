@@ -22,4 +22,13 @@ router.post(
 	utilities.handleErrors(accountController.registerAccount)
 );
 
+// Process the login attempt
+// Added to try and validate login
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLogData,
+  utilities.handleErrors(accountController.login)
+);
+
 module.exports = router;

@@ -9,6 +9,7 @@ async function buildLogin(req, res, next) {
 	res.render('account/login', {
 		title: 'Login',
 		nav,
+		errors: null,
 	});
 }
 
@@ -61,4 +62,36 @@ async function registerAccount(req, res) {
 	}
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount };
+/* ****************************************
+ *  Process Login
+ *  Added to try and validate login
+ * *************************************** */
+async function login(req, res) {
+	let nav = await utilities.getNav();
+	const {
+		account_email,
+	} = req.body;
+
+	const regResult = await accountModel.checkExistingEmail(
+		account_email
+	);
+
+	if (regResult) {
+		req.flash(
+			'notice',
+			`Log in success.`
+		);
+		res.status(201).render('account/login', {
+			title: 'Login',
+			nav,
+		});
+	} else {
+		req.flash('notice', 'Sorry, the login failed.');
+		res.status(501).render('account/login', {
+			title: 'Login',
+			nav,
+		});
+	}
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, login };
