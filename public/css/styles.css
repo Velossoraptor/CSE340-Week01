@@ -240,6 +240,15 @@ button:hover{
 .login a{
 	text-decoration: underline;
 }
+.button-link {
+	padding: 1em;
+	background-color: var(--teracotta);
+	font-style: bold;
+	margin-bottom: 1em;
+}
+.button-link:hover {
+	background-color: var(--tan);
+}
 footer {
 	margin-top: 3em;
 }

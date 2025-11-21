@@ -35,6 +35,17 @@ invCont.buildInvDetail = async function (req, res, next) {
 	});
 };
 
+/* ***************************
+ *  Build Inventory Management Page
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+	let nav = await utilities.getNav();
+	res.render('./inventory/management', {
+		title: 'Inventory Management',
+		nav,
+	});
+};
+
 invCont.throwError = async function(req, res){
 	const error = new Error("Internal Server Error: Something Went Wrong! (Intentionally)");
 	error.status = 500;

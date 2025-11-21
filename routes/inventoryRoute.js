@@ -4,6 +4,8 @@ const router = new express.Router();
 const invController = require('../controllers/invController');
 const utilities = require('../utilities/');
 
+// Route to get to Inventory Management
+router.get('/', utilities.handleErrors(invController.buildManagement));
 
 // Route to build inventory by classification view
 router.get(
@@ -16,6 +18,8 @@ router.get(
 	'/details/:invId',
 	utilities.handleErrors(invController.buildInvDetail)
 );
+
+// Route to trigger 500 series error
 router.get('/trigger500', utilities.handleErrors(invController.throwError));
 
 
