@@ -44,7 +44,6 @@ async function getExistingAccount(account_email) {
 		const sql = 'SELECT account_password FROM account WHERE account_email = $1';
 		console.log(sql);
 		const account = await pool.query(sql, [account_email]);
-		console.log('Query Results: ' + account);
 		if (account.rowCount === 0) return null; // no account found
 
 		return account.rows[0].account_password; // THIS is the stored hash
