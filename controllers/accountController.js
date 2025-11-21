@@ -82,12 +82,14 @@ async function login(req, res) {
 			`Log in success.`
 		);
 		res.status(201).render('account/login', {
+			errors: null,
 			title: 'Login',
 			nav,
 		});
 	} else {
 		req.flash('notice', 'Sorry, the login failed.');
 		res.status(501).render('account/login', {
+			errors: null,
 			title: 'Login',
 			nav,
 		});
