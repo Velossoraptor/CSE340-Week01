@@ -70,12 +70,18 @@ validate.loginRules = () => {
 					account_email
 				);
 				if (!emailExists) {
-					throw new Error('Email is not registered. Please register or use different email');
+					throw new Error(
+						'Email is not registered. Please register or use different email'
+					);
 				}
 			}),
-			// Eventually we'll need to validate the password- not sure if thats required here?
-	]
-}
+		// password is required and must be a strong password, must match account
+		body('account_password')
+			.trim()
+			.notEmpty()
+			.withMessage('Password does not meet requirements'),
+	];
+};
 
 /* ******************************
  * Check data and return errors or continue to registration
@@ -104,7 +110,7 @@ validate.checkRegData = async (req, res, next) => {
  * Added to try and validate login
  * ***************************** */
 validate.checkLogData = async (req, res, next) => {
-	const {account_email} = req.body;
+	const { account_email } = req.body;
 	let errors = [];
 	errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -118,6 +124,6 @@ validate.checkLogData = async (req, res, next) => {
 		return;
 	}
 	next();
-}
+};
 
 module.exports = validate;

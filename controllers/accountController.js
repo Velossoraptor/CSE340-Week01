@@ -1,5 +1,6 @@
 const utilities = require('../utilities/');
 const accountModel = require('../models/account-model');
+const bcrypt = require('bcryptjs');
 
 /* ****************************************
  *  Deliver login view
@@ -37,11 +38,28 @@ async function registerAccount(req, res) {
 		account_password,
 	} = req.body;
 
+	// Hash the password before storing
+	let hashedPassword;
+	try {
+		// regular password and cost (salt is generated automatically)
+		hashedPassword = await bcrypt.hashSync(account_password, 10);
+	} catch (error) {
+		req.flash(
+			'notice',
+			'Sorry, there was an error processing the registration.'
+		);
+		res.status(500).render('account/register', {
+			title: 'Registration',
+			nav,
+			errors: null,
+		});
+	}
+
 	const regResult = await accountModel.registerAccount(
 		account_firstname,
 		account_lastname,
 		account_email,
-		account_password
+		hashedPassword // Changed in hashing activity
 	);
 
 	if (regResult) {
@@ -50,12 +68,14 @@ async function registerAccount(req, res) {
 			`Congratulations, you\'re registered ${account_firstname}. Please log in.`
 		);
 		res.status(201).render('account/login', {
+			errors: null,
 			title: 'Login',
 			nav,
 		});
 	} else {
 		req.flash('notice', 'Sorry, the registration failed.');
 		res.status(501).render('account/register', {
+			errors: null,
 			title: 'Registration',
 			nav,
 		});
@@ -68,19 +88,19 @@ async function registerAccount(req, res) {
  * *************************************** */
 async function login(req, res) {
 	let nav = await utilities.getNav();
-	const {
-		account_email,
-	} = req.body;
+	const { account_email, account_password } = req.body;
 
-	const regResult = await accountModel.checkExistingEmail(
-		account_email
-	);
+	const regResult = await accountModel.checkExistingEmail(account_email);
+	let validPass;
+	if(regResult){
+		const formPassword = await accountModel.getExistingAccount(account_email);
+		validPass = await bcrypt.compare(account_password, formPassword);
+	}else{
+		validPass = false;
+	}
 
-	if (regResult) {
-		req.flash(
-			'notice',
-			`Log in success.`
-		);
+	if (validPass) {
+		req.flash('notice', `Log in success.`);
 		res.status(201).render('account/login', {
 			errors: null,
 			title: 'Login',
