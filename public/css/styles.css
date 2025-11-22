@@ -245,6 +245,7 @@ button:hover{
 	background-color: var(--teracotta);
 	font-style: bold;
 	margin-bottom: 1em;
+	margin-top: 1em;
 }
 .button-link:hover {
 	background-color: var(--tan);
