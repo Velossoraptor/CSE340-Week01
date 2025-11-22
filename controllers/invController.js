@@ -46,8 +46,50 @@ invCont.buildManagement = async function (req, res, next) {
 	});
 };
 
-invCont.throwError = async function(req, res){
-	const error = new Error("Internal Server Error: Something Went Wrong! (Intentionally)");
+/* ***************************
+ *  Build Add Classification  Page
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+	let nav = await utilities.getNav();
+	res.render('./inventory/add-classification', {
+		title: 'Add Classification',
+		nav,
+		errors: null,
+	});
+};
+
+/* ***************************
+ *  Handle Adding a Classification
+ * ************************** */
+invCont.addClassification = async function (req, res) {
+	const { classification_name } = req.body;
+
+	const addClassResult = await invModel.addClassification(classification_name);
+	let nav = await utilities.getNav();
+	if (addClassResult) {
+		req.flash(
+			'notice',
+			`You\'ve added a new Classification: ${classification_name}`
+		);
+		res.status(201).render('inventory/add-classification', {
+			errors: null,
+			title: 'Add Classification',
+			nav,
+		});
+	} else {
+		req.flash('notice', 'Sorry, failed to add a new Classification.');
+		res.status(501).render('inventory/add-classification', {
+			errors: null,
+			title: 'Add Classification',
+			nav,
+		});
+	}
+};
+
+invCont.throwError = async function (req, res) {
+	const error = new Error(
+		'Internal Server Error: Something Went Wrong! (Intentionally)'
+	);
 	error.status = 500;
 	throw error;
 };
