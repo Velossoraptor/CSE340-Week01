@@ -59,6 +59,21 @@ invCont.buildAddClassification = async function (req, res, next) {
 };
 
 /* ***************************
+ *  Build Add Inventory  Page
+ * ************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+	let nav = await utilities.getNav();
+	let dropDown = await utilities.buildClassificationList();
+	res.render('./inventory/add-inventory', {
+		title: 'Add Inventory',
+		nav,
+		dropDown: dropDown,
+		errors: null,
+		classification_id: null,
+	});
+};
+
+/* ***************************
  *  Handle Adding a Classification
  * ************************** */
 invCont.addClassification = async function (req, res) {
@@ -86,6 +101,58 @@ invCont.addClassification = async function (req, res) {
 	}
 };
 
+/* ***************************
+ *  Handle Adding an Inventory Item
+ * ************************** */
+invCont.addInventory = async function (req, res) {
+	const {
+		inv_make,
+		inv_model,
+		inv_year,
+		inv_description,
+		inv_image,
+		inv_thumbnail,
+		inv_price,
+		inv_miles,
+		inv_color,
+		classification_id,
+	} = req.body;
+	classification_id = Number(classification_id);
+	const addInvResult = await invModel.addInventory(
+		inv_make,
+		inv_model,
+		inv_year,
+		inv_description,
+		inv_image,
+		inv_thumbnail,
+		inv_price,
+		inv_miles,
+		inv_color,
+		classification_id
+	);
+	classification_id = Number(classification_id);
+	let nav = await utilities.getNav();
+	let dropDown = await utilities.buildClassificationList(classification_id);
+	console.log('Form classification_id:', classification_id);
+	if (addInvResult) {
+		req.flash(
+			'notice',
+			`You\'ve added a new Inventory Item: ${inv_year} ${inv_make} ${inv_model}`
+		);
+		return res.redirect('/inv/');
+	} else {
+		req.flash('notice', 'Sorry, failed to add a new Inventory Item.');
+		res.status(501).render('inventory/add-inventory', {
+			errors: null,
+			title: 'Add inventory',
+			nav,
+			dropDown: dropDown,
+			classification_id,
+		});
+	}
+};
+
+// Throws an error
 invCont.throwError = async function (req, res) {
 	const error = new Error(
 		'Internal Server Error: Something Went Wrong! (Intentionally)'
