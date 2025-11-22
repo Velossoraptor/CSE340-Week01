@@ -105,7 +105,7 @@ invCont.addClassification = async function (req, res) {
  *  Handle Adding an Inventory Item
  * ************************** */
 invCont.addInventory = async function (req, res) {
-	const {
+	let {
 		inv_make,
 		inv_model,
 		inv_year,
@@ -117,7 +117,6 @@ invCont.addInventory = async function (req, res) {
 		inv_color,
 		classification_id,
 	} = req.body;
-	classification_id = Number(classification_id);
 	const addInvResult = await invModel.addInventory(
 		inv_make,
 		inv_model,
@@ -130,10 +129,8 @@ invCont.addInventory = async function (req, res) {
 		inv_color,
 		classification_id
 	);
-	classification_id = Number(classification_id);
 	let nav = await utilities.getNav();
 	let dropDown = await utilities.buildClassificationList(classification_id);
-	console.log('Form classification_id:', classification_id);
 	if (addInvResult) {
 		req.flash(
 			'notice',
@@ -147,7 +144,6 @@ invCont.addInventory = async function (req, res) {
 			title: 'Add inventory',
 			nav,
 			dropDown: dropDown,
-			classification_id,
 		});
 	}
 };

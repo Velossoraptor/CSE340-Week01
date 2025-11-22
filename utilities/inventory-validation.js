@@ -129,12 +129,13 @@ validate.checkInvData = async (req, res, next) => {
 		inv_price,
 		inv_miles,
 		inv_color,
+        classification_id
 	} = req.body;
 	let errors = [];
 	errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		let nav = await utilities.getNav();
-		let dropDown = await utilities.buildClassificationList();
+		let dropDown = await utilities.buildClassificationList(classification_id);
 		res.render('inventory/add-inventory', {
 			errors,
 			title: 'Add Inventory',
@@ -149,6 +150,7 @@ validate.checkInvData = async (req, res, next) => {
 			inv_price,
 			inv_miles,
 			inv_color,
+            classification_id
 		});
 		return;
 	}

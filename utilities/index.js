@@ -124,24 +124,22 @@ Util.buildInvDetail = async function (data) {
  * Build the dynamic select dropdown HTML
  * ************************************ */
 Util.buildClassificationList = async function (classification_id = null) {
-    let data = await invModel.getClassifications()
+    let data = await invModel.getClassifications();
     let classificationList =
-      '<select name="classification_id" id="classificationList" required>'
-    classificationList += "<option value=''>Choose a Classification</option>"
+      '<select name="classification_id" id="classificationList" required>';
+    classificationList += "<option value=''>Choose a Classification</option>";
     data.rows.forEach((row) => {
-      classificationList += '<option value="' + row.classification_id + '"'
+      classificationList += '<option value="' + row.classification_id + '"';
       if (
         classification_id != null &&
-        Number(row.classification_id) == Number(classification_id)
+        Number(row.classification_id) === Number(classification_id)
       ) {
-        classificationList +=  `selected` 
-      }else(
-		console.log("classification_Id: " + classification_id + " | rowClassId: " + row.classification_id)
-	  )
-      classificationList += ">" + row.classification_name + "</option>"
-    })
-    classificationList += "</select>"
-    return classificationList
+        classificationList += ' selected';
+      }
+      classificationList += ">" + row.classification_name + "</option>";
+    });
+    classificationList += "</select>";
+    return classificationList;
   }
 
 /* ****************************************
