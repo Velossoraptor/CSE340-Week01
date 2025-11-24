@@ -48,6 +48,9 @@ router.get(
 	utilities.handleErrors(invController.buildInvDetail)
 );
 
+// Route to get inventory items by id in the management page
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 // Route to trigger 500 series error
 router.get('/trigger500', utilities.handleErrors(invController.throwError));
 
