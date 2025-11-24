@@ -1,0 +1,21 @@
+<!-- Display the title of the page in the HTML, which can help SEO -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else { res.redirect('/') } %> <%- messages() %>
+
+<!-- Display Messages -->
+ <!-- Added to try and validate login -->
+<%- messages() %>
+
+<!-- Display Errors -->
+  <!-- Added to try and validate login -->
+<% if (errors) { %>
+<ul class="notice">
+	<% errors.array().forEach(error => { %>
+	<li><%= error.msg %></li>
+	<% }) %>
+</ul>
+<% } %>
+
+<!-- Display Main Page contentet -->
+ <p> You're Logged In! </p>
