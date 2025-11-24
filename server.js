@@ -1,5 +1,8 @@
 // TEST ACCOUNT CREDENTIALS FOR APPLICATION TESTING
 // Test Account test@test.com TestPassword123!
+// Basic Client basic@340.edu I@mABas1cCl!3nt
+// Happy Employee happy@340.edu I@mAnEmpl0y33
+// Manager User manager@340.edu I@mAnAdm!n1strat0r
 /* ******************************************
  * This server.js file is the primary file of the
  * application. It is used to control the project.
