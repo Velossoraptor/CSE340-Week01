@@ -54,10 +54,15 @@ router.get(
 	utilities.handleErrors(invController.getInventoryJSON)
 );
 
-// Route to modify inventory items by id
-router.get(
-	'/edit/:inv_id',
-	utilities.handleErrors(invController.buildEditInv)
+// Route to start to modify inventory items by id
+router.get('/edit/:inv_id', utilities.handleErrors(invController.buildEditInv));
+
+// Route to handle submission of modified inv item
+router.post(
+	'/update/',
+	invValidate.inventoryRules(),
+	invValidate.checkUpdateData,
+	utilities.handleErrors(invController.updateInventory)
 );
 
 // Route to trigger 500 series error

@@ -230,6 +230,14 @@ button:hover{
 .login input[type="submit"]:hover{
 	background-color: var(--brown);
 }
+.login input[type="submit"]:disabled{
+	background-color: rgb(71, 22, 22);
+	color: white;
+}
+.login input[type="submit"]:hover:disabled{
+	background-color: rgb(144, 37, 37);
+	color: white;
+}
 .login label{
 	display: flex;
 	flex-direction: column;

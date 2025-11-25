@@ -180,10 +180,12 @@ invCont.throwError = async function (req, res) {
 invCont.buildEditInv = async function (req, res, next) {
 	const inv_id = parseInt(req.params.inv_id);
 	console.log(req.params.inv_id);
-	console.log(inv_id + typeof(inv_id));
+	console.log(inv_id + typeof inv_id);
 	let nav = await utilities.getNav();
 	const itemData = (await invModel.getInvItemById(inv_id))[0];
-	let dropDown = await utilities.buildClassificationList(itemData.classification_id);
+	let dropDown = await utilities.buildClassificationList(
+		itemData.classification_id
+	);
 	const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
 	res.render('./inventory/edit-inventory', {
 		title: 'Edit ' + itemName,
@@ -202,6 +204,65 @@ invCont.buildEditInv = async function (req, res, next) {
 		inv_color: itemData.inv_color,
 		classification_id: itemData.classification_id,
 	});
+};
+
+/* ***************************
+ *  Handle Updating an Inventory Item
+ * ************************** */
+invCont.updateInventory = async function (req, res) {
+	let {
+		inv_id,
+		inv_make,
+		inv_model,
+		inv_year,
+		inv_description,
+		inv_image,
+		inv_thumbnail,
+		inv_price,
+		inv_miles,
+		inv_color,
+		classification_id,
+	} = req.body;
+	const updateResult = await invModel.updateInventory(
+		inv_id,
+		inv_make,
+		inv_model,
+		inv_year,
+		inv_description,
+		inv_image,
+		inv_thumbnail,
+		inv_price,
+		inv_miles,
+		inv_color,
+		classification_id
+	);
+	let nav = await utilities.getNav();
+	if (updateResult) {
+		const itemName = updateResult.inv_make + ' ' + updateResult.inv_model;
+		req.flash('notice', `The ${itemName} was successfully updated.`);
+		return res.redirect('/inv/');
+	} else {
+		let dropDown = await utilities.buildClassificationList(classification_id);
+		const itemName = `${inv_make} ${inv_model}`;
+		req.flash('notice', 'Sorry, the insert failed.');
+		res.status(501).render('inventory/edit-inventory', {
+			title: 'Edit ' + itemName,
+			nav,
+			dropDown: dropDown,
+			errors: null,
+			inv_id,
+			inv_make,
+			inv_model,
+			inv_year,
+			inv_description,
+			inv_image,
+			inv_thumbnail,
+			inv_price,
+			inv_miles,
+			inv_color,
+			classification_id,
+		});
+	}
 };
 
 module.exports = invCont;
