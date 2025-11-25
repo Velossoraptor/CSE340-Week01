@@ -250,6 +250,19 @@ button:hover{
 .button-link:hover {
 	background-color: var(--tan);
 }
+table {
+	border-collapse: collapse;
+}
+table a:hover{
+	text-decoration: underline;
+}
+tr:nth-child(even){
+	background-color: var(--quillGrey);
+}
+td, th {
+	border: 1px solid var(--darkGrey);
+	padding: .5em;
+}
 footer {
 	margin-top: 3em;
 }
