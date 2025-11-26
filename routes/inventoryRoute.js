@@ -57,6 +57,12 @@ router.get(
 // Route to start to modify inventory items by id
 router.get('/edit/:inv_id', utilities.handleErrors(invController.buildEditInv));
 
+// Route to handle deleting an item
+router.get('/delete/:inv_id', utilities.handleErrors(invController.buildDeleteInv));
+
+// Route to handle actual deleting of item
+router.post('/delete/', utilities.handleErrors(invController.deleteInventory));
+
 // Route to handle submission of modified inv item
 router.post(
 	'/update/',
