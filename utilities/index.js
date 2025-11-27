@@ -187,4 +187,27 @@ Util.checkLogin = (req, res, next) => {
 	}
 };
 
+/* ****************************************
+ *  Check Admin/Employee
+ * ************************************ */
+Util.checkAdminEmployee = (req, res, next) => {
+	// Check if logged in and there is a token
+	if (res.locals.loggedin && req.cookies.jwt) {
+		// Veryify the account is either employee or admin
+		jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function(error, accountData){
+			// if the account is not an employee/admin, let them know that view is unauthorized and redirect to login
+			if(accountData.account_type !== 'Admin' || accountData.account_type !== 'Employee'){
+				req.flash('notice', 'Unauthorized.');
+				return res.redirect('/account/login');
+			}
+			// Otherwise move on
+			next();
+		})
+	} else {
+		// If not logged in, ask them to log in
+		req.flash('notice', 'Please log in');
+		return res.redirect('/account/login');
+	}
+};
+
 module.exports = Util;
