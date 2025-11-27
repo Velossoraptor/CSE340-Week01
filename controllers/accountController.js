@@ -148,10 +148,23 @@ async function login(req, res) {
 	}
 }
 
+/* ****************************************
+ *  Deliver account management view
+ * ************************************ */
+async function buildAccountManager(req, res, next) {
+	let nav = await utilities.getNav();
+	res.render('account/update', {
+		title: 'Update My Account',
+		nav,
+		errors: null,
+	});
+}
+
 module.exports = {
 	buildLogin,
 	buildRegister,
 	registerAccount,
 	login,
 	buildAccount,
+	buildAccountManager,
 };

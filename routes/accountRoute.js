@@ -37,6 +37,6 @@ router.post(
 );
 
 // Route to build account update page
-router.post('/update/:account_id', utilities.handleErrors(accountController.buildAccountManager));
+router.get('/update/:accountId', utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManager));
 
 module.exports = router;

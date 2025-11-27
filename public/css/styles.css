@@ -211,6 +211,7 @@ button:hover{
 	border-radius: 8px;
 	padding: 1em;
 	font-family: var(--smallText);
+	margin-bottom: 1em;
 }
 .login input, select{
 	margin-bottom: 1em;
