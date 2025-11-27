@@ -29,12 +29,14 @@ router.post(
 );
 
 // Process the login attempt
-// Added to try and validate login
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLogData,
   utilities.handleErrors(accountController.login)
 );
+
+// Route to build account update page
+router.post('/update/:account_id', utilities.handleErrors(accountController.buildAccountManager));
 
 module.exports = router;

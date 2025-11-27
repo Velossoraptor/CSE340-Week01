@@ -148,24 +148,10 @@ async function login(req, res) {
 	}
 }
 
-/* ****************************************
- *  Process and build logout view
- * ************************************ */
-async function buildLogout(req, res, next) {
-	try {
-		res.clearCookie('jwt');
-		req.flash("notice", "Logged out");
-		return res.redirect("/");
-	} catch (err) {
-		console.log(err);
-	}
-}
-
 module.exports = {
 	buildLogin,
 	buildRegister,
 	registerAccount,
 	login,
 	buildAccount,
-	buildLogout,
 };
