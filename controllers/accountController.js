@@ -160,6 +160,99 @@ async function buildAccountManager(req, res, next) {
 	});
 }
 
+/* ****************************************
+ *  Process and build logout view
+ * ************************************ */
+async function logout(req, res, next) {
+	try {
+		res.clearCookie('jwt');
+		req.flash('notice', 'Logged out');
+		return res.redirect('/');
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+/* ****************************************
+ *  Process updateAccount request
+ * ************************************ */
+async function updateAccount(req, res) {
+	let nav = await utilities.getNav();
+	const { account_firstname, account_lastname, account_email, account_id } =
+		req.body;
+
+	const regResult = await accountModel.updateAccount(
+		account_firstname,
+		account_lastname,
+		account_email,
+		account_id
+	);
+	const updatedAccount = await accountModel.getAccountByid(account_id);
+	const newToken = jwt.sign(updatedAccount, process.env.ACCESS_TOKEN_SECRET, {
+		expiresIn: 3600 * 1000,
+	});
+
+	if (regResult) {
+		if (process.env.NODE_ENV === 'development') {
+			res.cookie('jwt', newToken, { httpOnly: true, maxAge: 3600 * 1000 });
+		} else {
+			res.cookie('jwt', newToken, {
+				httpOnly: true,
+				secure: true,
+				maxAge: 3600 * 1000,
+			});
+		}
+		req.flash('notice', `Account Details updated successfully`);
+		res.redirect('/account/');
+	} else {
+		req.flash('notice', 'Update Failed');
+		res.status(501).render('account/update', {
+			errors: null,
+			title: 'Update My Account',
+			nav,
+		});
+	}
+}
+
+/* ****************************************
+ *  Process updatePassword request
+ * ************************************ */
+async function updatePassword(req, res) {
+	let nav = await utilities.getNav();
+	const { account_password, account_id } = req.body;
+
+	// Hash the password before storing
+	let hashedPassword;
+	try {
+		// regular password and cost (salt is generated automatically)
+		hashedPassword = await bcrypt.hashSync(account_password, 10);
+	} catch (error) {
+		req.flash('notice', 'Sorry, there was an error processing the update.');
+		res.status(500).render('account/update', {
+			title: 'Update My Account',
+			nav,
+			errors: null,
+		});
+	}
+
+	const regResult = await accountModel.updatePassword(
+		hashedPassword,
+		account_id
+	);
+
+	if (regResult) {
+		req.flash('notice', `Password updated successfully`);
+		res.redirect('/account/');
+	} else {
+		req.flash('notice', 'Password Update Failed');
+		res.status(501).render('account/update', {
+			errors: null,
+			title: 'Update My Account',
+			nav,
+		});
+	}
+}
+
 module.exports = {
 	buildLogin,
 	buildRegister,
@@ -167,4 +260,7 @@ module.exports = {
 	login,
 	buildAccount,
 	buildAccountManager,
+	updateAccount,
+	updatePassword,
+	logout,
 };

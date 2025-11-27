@@ -24,23 +24,37 @@
 			type="text"
 			id="account_firstname"
 			name="account_firstname"
-			required 
-			value="<%= locals.accountData.account_firstname %>"/>
+			required
+			value="<%= locals.accountData.account_firstname %>" />
 	</label>
 	<label
 		>*Last name:
-		<input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.accountData.account_lastname %>"/>
+		<input
+			type="text"
+			id="account_lastname"
+			name="account_lastname"
+			required
+			value="<%= locals.accountData.account_lastname %>" />
 	</label>
 	<label
 		>*Email address:
-		<input type="email" id="account_email" name="account_email" required value="<%= locals.accountData.account_email %>"/>
+		<input
+			type="email"
+			id="account_email"
+			name="account_email"
+			required
+			value="<%= locals.accountData.account_email %>" />
 	</label>
-    <input type="submit" value="Confirm Changes" />
+	<input
+		type="hidden"
+		name="account_id"
+		value="<%= locals.accountData.account_id %>" />
+	<input type="submit" value="Confirm Changes" />
 </form>
 
-<form class="login" action="/account/update" method="post">
+<form class="login" action="/account/updatePassword" method="post">
 	<label
-		>*Password:
+		>*New Password:
 		<input
 			type="password"
 			id="account_password"
@@ -48,5 +62,15 @@
 			pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
 			required />
 	</label>
-    <input type="submit" value="Change Password" />
+    <div>
+		<p>
+			Note: This will change your current password. Passwords must be at least 12 characters, contain one capital
+			letter, one number, one special character
+		</p>
+	</div>
+    <input
+		type="hidden"
+		name="account_id"
+		value="<%= locals.accountData.account_id %>" />
+	<input type="submit" value="Change Password" />
 </form>
