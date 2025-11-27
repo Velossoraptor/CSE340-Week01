@@ -11,6 +11,9 @@ router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.b
 // Route for login
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
 
+// Route for logout
+router.get('/logout', utilities.handleErrors(accountController.buildLogout));
+
 // Route for registration form
 router.get(
 	'/register',
