@@ -109,11 +109,24 @@ async function getAccountByid(account_id) {
 	}
 }
 
+/* *****************************
+ * Delete account using id
+ * ***************************** */
+async function deleteAccountById(account_id) {
+	try{
+		const sql = 'DELETE FROM account WHERE account_id=$1 RETURNING *';
+		return await pool.query(sql, [account_id]);
+	} catch(err){
+		throw err;
+	}
+}
+
 module.exports = {
 	registerAccount,
 	checkExistingEmail,
 	getAccountByEmail,
 	updateAccount,
 	updatePassword,
-	getAccountByid
+	getAccountByid,
+	deleteAccountById
 };

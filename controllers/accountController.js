@@ -174,6 +174,18 @@ async function logout(req, res, next) {
 }
 
 /* ****************************************
+ *  Build delete account view
+ * ************************************ */
+async function buildDeleteAccount(req, res, next) {
+	let nav = await utilities.getNav();
+	res.render('account/delete', {
+		title: 'Delete Account',
+		errors: null,
+		nav,
+	});
+}
+
+/* ****************************************
  *  Process updateAccount request
  * ************************************ */
 async function updateAccount(req, res) {
@@ -253,6 +265,43 @@ async function updatePassword(req, res) {
 	}
 }
 
+/* ****************************************
+ *  Process deleteAccount request
+ * ************************************ */
+async function deleteAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_id } = req.body;
+
+  let deleteResult;
+
+  // Catches any errors returned
+  try {
+    deleteResult = await accountModel.deleteAccountById(account_id);
+  } catch (err) {
+    req.flash('notice', 'There was a problem deleting the account.');
+    return res.status(400).render('account/login', {
+      title: 'Login',
+      nav,
+      errors: null
+    });
+  }
+
+  // account didnt exist
+  if (deleteResult.rowCount === 0) {
+    req.flash('notice', 'Account not found or could not be deleted.');
+    return res.status(400).render('account/login', {
+      title: 'Login',
+      nav,
+      errors: null
+    });
+  }
+
+  // delete auth
+  res.clearCookie('jwt');
+  req.flash('notice', 'Account deleted successfully.');
+  return res.redirect('/');
+}
+
 module.exports = {
 	buildLogin,
 	buildRegister,
@@ -263,4 +312,6 @@ module.exports = {
 	updateAccount,
 	updatePassword,
 	logout,
+	buildDeleteAccount,
+	deleteAccount,
 };
